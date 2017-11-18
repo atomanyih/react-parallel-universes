@@ -1,6 +1,9 @@
+// NAIVE
+
 class ThingsListContainer extends React.Component {
   static propTypes = {
-    filterFn: PropTypes.func
+    filterFn: PropTypes.func,
+    showsTable: PropTypes.bool
   };
 
   state = {
@@ -22,9 +25,12 @@ class ThingsListContainer extends React.Component {
 
     const filteredThings = things.filter(filterFn);
 
+    if(showsTable) {
+      return <ThingsTable {...{things: filteredThings, isLoading}}/>;
+    }
     return <ThingsListView {...{things: filteredThings, isLoading}}/>;
   }
 }
 
-const AllThingsList = () => <ThingsListContainer/>;
 const CoolThingsList = () => <ThingsListContainer filterFn={({isCool}) => isCool}/>;
+const CoolThingsTable = () => <ThingsListContainer isTable filterFn={({isCool}) => isCool}/>;

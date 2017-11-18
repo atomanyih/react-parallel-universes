@@ -6,11 +6,10 @@ const withFilteredThings = filterFn => Wrapped => ({things, ...otherProps}) => {
   return <Wrapped {...otherProps} {...{things: coolThings}}/>;
 };
 
-const CoolActiveThingsTable = fetchesThings(withFilteredThings(({isCool, status}) => isCool && (status === 'active'))(ThingsList));
-
-// better
-
 const CoolActiveThingsTable = compose(
   fetchesThings,
   withFilteredThings(({isCool, status}) => isCool && (status === 'active'))
 )(ThingsList);
+
+const withCoolThings = withFilteredThings(isCoolThing);
+const withActiveThings = withFilteredThings(isActiveThing);

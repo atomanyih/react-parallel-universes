@@ -21,4 +21,20 @@ const fetchesThings = Wrapped => (
   }
 );
 
+const ThingsList = ({things, isLoading}) => {
+  if (isLoading) {
+    return <div>Loading things</div>;
+  }
+
+  if (things.length === 0) {
+    return <div>No things</div>;
+  }
+
+  return (
+    <ul>
+      {things.map(({name}) => <li>{name}</li>)}
+    </ul>
+  );
+};
+
 const AllThingsList = fetchesThings(ThingsList);

@@ -7,6 +7,23 @@ const List = ({items}) => (
   </ul>
 );
 
+const FilterableCoolThingsList = compose(
+  fetchesThings,
+  withProps(({things}) => ({
+    things: things.filter(({isCool}) => isCool)
+  })),
+  withProps(({things, filterStatus}) => ({
+    things: things.filter(({status}) => status === filterStatus)
+  })),
+  branch(
+    ({isLoading}) => isLoading,
+    renderComponent(() => <div>Loading things</div>)
+  ),
+  withProps(({things}) => ({
+    items: things.map(({name}) => name)
+  }))
+)(List);
+
 const DescriptionList = ({items}) => (
   <dl>
     {

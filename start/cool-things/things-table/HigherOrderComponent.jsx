@@ -26,6 +26,12 @@ const withCoolThings = Wrapped => ({things, ...otherProps}) => {
   return <Wrapped {...otherProps} {...{things: coolThings}}/>;
 }
 
+const fetchesCoolThings = compose(
+  fetchesThings,
+  withCoolThings
+);
 const AllThingsList = fetchesThings(ThingsList);
-const CoolThingsList = fetchesThings(withCoolThings(ThingsList));
-const CoolThingsTable = fetchesThings(withCoolThings(ThingsTable));
+const CoolThingsList = fetchesCoolThings(ThingsList);
+const CoolThingsTable = fetchesCoolThings(ThingsTable);
+
+

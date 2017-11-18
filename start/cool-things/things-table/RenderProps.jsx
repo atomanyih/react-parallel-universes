@@ -32,8 +32,8 @@ const AllThingsList = () => (
 const CoolThingsList = () => (
   <FetchesThings renderThings={
     (things, isLoading) => (
-      <ThingsList {...{
-        things: things.filter(({isCool}) => isCool),
+      <IdeasList {...{
+        ideas: things.filter(({isCool}) => isCool),
         isLoading
       }}/>
     )

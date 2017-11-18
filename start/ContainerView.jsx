@@ -34,6 +34,3 @@ const ThingsListView = ({things, isLoading}) => {
     </ul>
   );
 };
-
-// now we've separated UI from fetching
-// UI is still doing multiple things, but it's better
