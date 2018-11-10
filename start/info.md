@@ -35,6 +35,9 @@ NEW FEATURE: another page has a list of cool things
 
 CONTAINER VIEW
 
+naïve: flag to change filter
+
+slightly better:
 take a callback for a filter function
 this isn't super great b/c we've added another responsibility
 

@@ -21,7 +21,7 @@ class ThingsListContainer extends React.Component {
 
   render() {
     const {things, isLoading} = this.state;
-    const {filterFn = a => a} = this.props;
+    const {filterFn = a => a, showsTable} = this.props;
 
     const filteredThings = things.filter(filterFn);
 

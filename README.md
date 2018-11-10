@@ -8,3 +8,13 @@ take a glimpse into alternate futures; the evolution of three different patterns
 Container / View, Render Props, Higher Order Components
 
 also [recompose](https://github.com/acdlite/recompose) is dope
+
+
+
+### to improve
+
+- do "render table" before adding filtering (showing how you can swap out view)
+- then add filtering (composability)
+
+
+- using precise language to be less confusing

@@ -17,13 +17,14 @@ class FetchesThings extends React.Component {
   }
 
   render() {
-    const {things, isLoading} = this.state;
+    const { things, isLoading } = this.state;
+    const { renderThings } = this.props
 
     return renderThings(things, isLoading);
   }
 }
 
-const ThingsList = ({things, isLoading}) => {
+const ThingsList = ({ things, isLoading }) => {
   if (isLoading) {
     return <div>Loading things</div>;
   }
@@ -34,13 +35,13 @@ const ThingsList = ({things, isLoading}) => {
 
   return (
     <ul>
-      {things.map(({name}) => <li>{name}</li>)}
+      {things.map(({ name }) => <li>{name}</li>)}
     </ul>
   );
 };
 
 const AllThingsList = () => (
   <FetchesThings renderThings={
-    (things, isLoading) => <ThingsList {...{things, isLoading}}/>
+    (things, isLoading) => <ThingsList {...{ things, isLoading }}/>
   }/>
 );

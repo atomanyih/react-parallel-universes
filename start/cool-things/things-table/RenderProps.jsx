@@ -33,7 +33,7 @@ const CoolThingsList = () => (
   <FetchesThings renderThings={
     (things, isLoading) => (
       <IdeasList {...{
-        ideas: things.filter(({isCool}) => isCool),
+        things: things.filter(({isCool}) => isCool),
         isLoading
       }}/>
     )
@@ -47,6 +47,17 @@ const CoolThingsTable = () => (
         things: things.filter(({isCool}) => isCool),
         isLoading
       }}/>
+    )
+  }/>
+);
+
+const CoolThingsWithRenderProps = ({renderFn}) => (
+  <FetchesThings renderThings={
+    (things, isLoading) => (
+      renderFn(
+        things.filter(({isCool}) => isCool),
+        isLoading
+      )
     )
   }/>
 );

@@ -1,11 +1,14 @@
 const withFilteredThings = filterFn => Wrapped => ({things, ...otherProps}) => {
-  const coolThings = things.filter(otherProps)(filterFn);
+  const coolThings = things.filter(filterFn(otherProps));
   return <Wrapped {...otherProps} {...{things: coolThings}}/>;
 };
 
+// filterFn : props -> thing -> bool
+// Array.filter : Array[things] -> (thing -> bool) -> [things]
+
 const CoolThingsTableWithStatusFilter = compose(
   fetchesThings,
-  withFilteredThings(({filterStatus}) => ({isCool, status}) => isCool && (status === filterStatus))
+  withFilteredThings((props) => (thing) => thing.isCool && (thing.status === props.filterStatus))
 )(ThingsList);
 
 // getting kind of wild - let's dial it back

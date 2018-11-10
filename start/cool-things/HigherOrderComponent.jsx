@@ -26,8 +26,17 @@ const withCoolThings = Wrapped => ({things, ...otherProps}) => {
   return <Wrapped {...otherProps} {...{things: coolThings}}/>;
 };
 
+const withActiveThings = Wrapped => ({things, ...otherProps}) => {
+  const activeThings = things.filter(({status}) => status === 'active');
+  return <Wrapped {...otherProps} {...{things: activeThings}}/>;
+};
 const AllThingsList = fetchesThings(ThingsList);
 const CoolThingsList = fetchesThings(withCoolThings(ThingsList));
+const CoolActiveThingsList = compose(
+  fetchesThings,
+  withCoolThings,
+  withActiveThings,
+)(ThingsList);
 
 const CoolThingsListWithCompose = compose(
   fetchesThings,
