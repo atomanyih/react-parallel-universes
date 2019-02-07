@@ -1,3 +1,5 @@
+import React from 'react';
+
 class ThingsList extends React.Component {
   state = {
     isLoading: true,
@@ -30,3 +32,5 @@ class ThingsList extends React.Component {
     );
   }
 }
+
+export default ThingsList;
