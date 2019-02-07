@@ -1,3 +1,5 @@
+import React from "react";
+
 class ThingsListContainer extends React.Component {
   state = {
     isLoading: true,
@@ -5,6 +7,8 @@ class ThingsListContainer extends React.Component {
   };
 
   async componentDidMount() {
+    const {fetch} = this.props;
+
     const things = await fetch('example.com/api/things');
     this.setState({
       things,
@@ -30,7 +34,9 @@ const ThingsListView = ({things, isLoading}) => {
 
   return (
     <ul>
-      {things.map(({name}) => <li>{name}</li>)}
+      {things.map(({name}, i) => <li key={i}>{name}</li>)}
     </ul>
   );
 };
+
+export default ThingsListContainer;

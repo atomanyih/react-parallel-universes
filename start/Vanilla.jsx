@@ -7,6 +7,8 @@ class ThingsList extends React.Component {
   };
 
   async componentDidMount() {
+    const {fetch} = this.props;
+
     const things = await fetch('example.com/api/things');
     this.setState({
       things,
@@ -27,7 +29,7 @@ class ThingsList extends React.Component {
 
     return (
       <ul>
-        {things.map(({name}) => <li>{name}</li>)}
+        {things.map(({name}, i) => <li key={i}>{name}</li>)}
       </ul>
     );
   }
