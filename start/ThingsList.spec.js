@@ -3,7 +3,30 @@ import ContainerViewThingsList from './ContainerView';
 import HooksThingsList from './Hooks';
 
 import React from 'react';
-import {render} from 'react-testing-library'
+import {act, render} from 'react-testing-library'
+
+const createAsyncMock = () => {
+  let resolvePromise, rejectPromise;
+
+  const promise = new Promise((resolve, reject) => {
+    resolvePromise = resolve;
+    rejectPromise = reject;
+  });
+
+  return {
+    resolve(val) {
+      resolvePromise(val);
+
+      return promise;
+    },
+    reject(val) {
+      rejectPromise(val);
+
+      return promise;
+    },
+    mock: jest.fn().mockReturnValue(promise)
+  }
+};
 
 describe('ThingsList', () => {
   const itBehavesLikeAThingsList = Component => {
@@ -21,14 +44,14 @@ describe('ThingsList', () => {
 
     describe('when there are no things', () => {
       it('shows no things', async () => {
-        const fetch = () => Promise.resolve([]);
+        const {mock, resolve} = createAsyncMock();
 
 
         const rendered = render(
-          <Component {...{fetch}}/>
+          <Component {...{fetch: mock}}/>
         );
 
-        await fetch();
+        await resolve([]);
 
         expect(rendered.container.textContent).toContain('No things');
       });
@@ -36,17 +59,17 @@ describe('ThingsList', () => {
 
     describe('when there are things', () => {
       it('shows names of things', async () => {
-        const fetch = () => Promise.resolve([
-          {name: 'thing 1'},
-          {name: 'thing 2'},
-        ]);
+        const {mock, resolve} = createAsyncMock();
 
 
         const rendered = render(
-          <Component {...{fetch}}/>
+          <Component {...{fetch: mock}}/>
         );
 
-        await fetch();
+        await resolve([
+          {name: 'thing 1'},
+          {name: 'thing 2'},
+        ]);
 
         expect(rendered.container.textContent).toContain('thing 1');
         expect(rendered.container.textContent).toContain('thing 2');

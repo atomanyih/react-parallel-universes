@@ -4,12 +4,14 @@ const ThingsList = ({fetch}) => {
   const [things, setThings] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
+  const fetchThings = async () => {
+    const things = await fetch('example.com/api/things');
+    setThings(things);
+    setIsLoading(false);
+  };
+
   useEffect(() => {
-    (async () => {
-      const things = await fetch('example.com/api/things');
-      setThings(things);
-      setIsLoading(false);
-    })();
+    fetchThings()
   }, []);
 
   if (isLoading) {
